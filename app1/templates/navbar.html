@@ -1,0 +1,161 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home'%}">Navbar</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' '2021' 'March'%}">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Venue
+          </a>
+          <ul class="dropdown-menu">
+            {% if user.is_authenticated %}
+            <li><a
+              class="dropdown-item"
+              aria-current="page"
+              href="{% url 'add_venue' %}"
+              >Add Venue</a
+            ></li>
+            {% endif %}
+            <li><a
+              class="dropdown-item"
+              aria-current="page"
+              href="{% url 'list_venue' %}"
+              >venue list</a
+            ></li>
+            
+            
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Event
+          </a>
+          <ul class="dropdown-menu">
+            {% if user.is_authenticated %}
+            <li><a
+              class="dropdown-item"
+              aria-current="page"
+              href="{% url 'add_event' %}"
+              >Add Event</a</li>
+              {% endif %}
+            <li><a
+              class="dropdown-item"
+              aria-current="page"
+              href="{% url 'list-events' %}"
+              >event list</a>
+            </li>
+            
+          </ul>
+        </li>
+                      
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false">
+          
+          Downlodes
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                aria-current="page"
+                href="{% url 'text_venue' %}"
+                >venue text file</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                aria-current="page"
+                href="{% url 'csv_venue' %}"
+                >venue csv file</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                aria-current="page"
+                href="{% url 'pdf_venue' %}"
+                >venue pdf file</a
+              >
+            </li>
+          </ul>
+      </li>
+      
+      {% if user.is_authenticated %}
+      {% if user.is_superuser %}
+      <li class="nav-item">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          href="{% url 'event_approval' %}"
+          >Admin approve</a
+        >
+      </li>
+      {% endif %}
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="{% url 'logout_user' %}"
+            >LogOut</a
+          >
+        </li>
+      {% else %}
+      <li class="nav-item">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          href="{% url 'registration' %}"
+          >Register</a
+        >
+      </li>
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="{% url 'login_user' %}"
+            >LogIn</a
+          >
+        </li>
+      {% endif %} 
+        
+      
+      <form 
+        class="d-flex"
+        role="search"
+        method="POST"
+        action="{% url 'search_venues'%}"
+      >
+        {% csrf_token %}
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search Venues"
+          aria-label="Search"
+          name="searched"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>

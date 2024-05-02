@@ -1,0 +1,17 @@
+{% extends "base.html"%} {% block content %}
+<center>
+  <h1>{{id_venue}}{{id_venue.id}}</h1>
+  <br />
+  {{id_venue.address}}<br />
+  {{id_venue.zip_code}}<br />
+  {{id_venue.phone}}<br />
+  {{id_venue.email_address}}<br />
+  <a href="">{{id_venue.web}}</a><br />
+  owner:{{ owner }}<br />
+  first name:{{ owner.first_name }}<br />
+  last name:{{ owner.last_name}}<br />
+  {% if id_venue.image%}
+  <img src="{{id_venue.image.url}}" alt="" width="500">
+  {% endif %}
+</center>
+{% endblock %}

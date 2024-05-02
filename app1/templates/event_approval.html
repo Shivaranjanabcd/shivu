@@ -1,0 +1,80 @@
+{% extends "base.html"%} {% block content %}
+<h1>Event Approval From Admin.</h1>
+<br />
+<form action="" method="post">
+  {% csrf_token %}
+
+  <div class="card">
+    <div class="card-header">Event-Venue-User List:</div>
+    <div class="card-body">
+      <p class="card-text">Total event:{{event_count}}</p>
+      <p class="card-text">Total venue:{{venue_count}}</p>
+      <p class="card-text">Total user:{{user_count}}</p>
+    </div>
+  </div>
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">venue list</th>
+        <th scope="col">event list</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for venue in venue_list %}
+      <tr>
+        <td> 
+          <a href="{% url 'show_venue' venue.id %}">{{venue}}</a></td> 
+        <td>
+          <a href="{% url 'event_venue' venue.id %}" class="btn btn-sm btn btn-secondary">event link</a>
+          
+           
+        </td>
+        <br />
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Event List</th>
+        <th scope="col">Approval</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in event_list %}
+      <tr>
+        <td>{{event}}</td>
+        <td>
+          {% if event.approved %}
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              checked="checked"
+              value="{{event.id}}"
+              name="boxes"
+            />
+          </div>
+          {% else %}
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="{{event.id}}"
+              name="boxes"
+            />
+          </div>
+          {% endif %}
+        </td>
+        <br />
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <br />
+  <button class="btn btn-secondary" type="submit">Update approval</button>
+</form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html"%} {% block content%}
+<center>
+  <h1>Add Venue To DataBase</h1>
+  <br /><br />
+  {% if submitted %} your Venue Was Submitted Sucessfully! {% else %}
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!--this for secirity purpose hacker cant hack this forms easily!!-->
+
+    {{form.as_p}}
+    <input type="submit" value="Submit" class="btn btn-secondary" />
+  </form>
+  {% endif %}
+</center>
+{%endblock %}

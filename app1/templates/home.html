@@ -1,0 +1,18 @@
+{% extends "base.html"%} {% block content %}
+<center>
+  <h1>Welcome {{name}}!Events for {{month}} {{year}}</h1>
+  <p>As of now {{time}}</p>
+  {{cal|safe}}
+  <br/><br/>
+  {% if EventList %}
+  <h3>This month events..</h3>
+  {% for event in EventList %}
+    {{event}}<br/>
+  {% endfor %}
+  {% else %}
+    <h3>sorry..no event this month!</h3>
+  {% endif %}
+  <p>Copyright (c) {{current_year}}</p>
+</center>
+{% endblock %}
+

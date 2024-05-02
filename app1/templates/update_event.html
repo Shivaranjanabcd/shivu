@@ -1,0 +1,14 @@
+{% extends "base.html"%} {% block content %} {% if user == Event.manager%}
+
+<h1>Update event...</h1>
+
+<form action="" method="POST">
+  {% csrf_token %} {{form.as_p}}
+  <input type="submit" value="Updates!!!" class="btn btn-secondary" />
+  <!-- here value is "the button with 'updates!!!'indication name'...check in webpage "-->
+</form>
+{% else %}
+<h3>your not a user!</h3>
+<h3>user:{{ user }}</h3>
+<h3>id:{{ user.id }}</h3>
+{% endif %} {% endblock %}

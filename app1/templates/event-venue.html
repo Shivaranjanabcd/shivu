@@ -1,0 +1,9 @@
+{% extends "base.html"%} {% block content %}
+<center>
+  {% for events in events %}
+  <a href="{% url 'list_of_event' events.id %}" class="link-offset-2 link-underline link-underline-opacity-0"
+    >{{ events }}</a
+  ><br />
+  {% endfor %}
+</center>
+{% endblock %}

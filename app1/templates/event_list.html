@@ -1,0 +1,81 @@
+{% extends "base.html"%} {% block content %}
+<style>
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+</style>
+<p>this is event template</p>
+<form
+  class="d-flex"
+  role="search"
+  method="POST"
+  action="{% url 'search_event'%}"
+>
+  {% csrf_token %}
+  <input
+    class="form-control me-2"
+    type="search"
+    placeholder="Search Venues"
+    aria-label="Search"
+    name="searchedd"
+  />
+  <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+<h1>EVENTS!</h1>
+{% if searched %}
+<center>
+  {% for events in events %} {{ events }}<br />
+  <ul>
+    <li>venue:{{events.venue.web}}</li>
+    <li>manager:{{events.manager}}</li>
+    <li>Desc:{{events.description}}</li>
+    {% for user in events.attendes.all %}
+    <li>atendees:{{user}}</li>
+    
+    {% endfor %}
+    <br /><br /><br />
+  </ul>
+  {% endfor %}
+</center>
+{% else %}
+<div class="container">
+  {% if messages %} {% for message in messages %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{message}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  {% endfor %} {% endif %} {% endif %}
+  <strong>{{event}}</strong>
+  <ul>
+    {% for event in event_list %}
+
+    <h1>{{event}}</h1>
+    <li>Date:{{event.event_date}}</li>
+    <li align="right">
+      <a class="btn btn-secondary" href="{% url 'update_events' event.id%}"
+        >Update</a
+      >
+      {% if event.manager == user %}
+      <a class="btn btn-danger" href="{% url 'delete_event' event.id%}"
+        >Delete</a
+      >
+      {% endif %}
+    </li>
+    <li>event day:{{event.days_till}}</li>
+    <li>venue:{{event.venue.web}}</li>
+    <li>manager:{{event.manager}}</li>
+    <li>Desc:{{event.description}}</li>
+    {% for user in event.attendes.all %}
+    <li>atendees:{{user}}</li>
+    {% endfor %}<br/>
+    <li>Approved:{{event.approved}}</li>
+    {% endfor %} {%endblock %}
+  </ul>
+</div>
